@@ -5,11 +5,24 @@ return {
     priority = 500,
   },
 
+  -- tairiki scheme
+  {
+    "deparr/tairiki.nvim",
+    lazy = false,
+    priority = 1000,
+    config = function()
+      require("tairiki").setup({
+        -- optional configuration here
+      })
+      require("tairiki").load()
+    end,
+  },
+
   -- Configure LazyVim to load tomorrow-night
   {
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = "base16-tomorrow-night",
+      colorscheme = "tairiki",
     },
   },
 }
