@@ -22,23 +22,15 @@ return {
     },
     ft = "quarto",
     keys = {
-      { "<leader>qa", ":QuartoActivate<cr>", desc = "quarto activate" },
-      { "<leader>qp", ":lua require'quarto'.quartoPreview()<cr>", desc = "quarto preview" },
-      { "<leader>qc", ":lua require'quarto'.quartoClosePreview()<cr>", desc = "quarto close" },
-      { "<leader>qh", ":QuartoHelp ", desc = "quarto help" },
-      { "<leader>qe", ":lua require'otter'.export()<cr>", desc = "quarto export" },
-      { "<leader>qE", ":lua require'otter'.export(true)<cr>", desc = "quarto export overwrite" },
-      { "<leader>qrr", ":QuartoSendAbove<cr>", desc = "quarto run to cursor" },
-      { "<leader>qra", ":QuartoSendAll<cr>", desc = "quarto run all" },
-      { "<leader><cr>", ":SlimeSend<cr>", desc = "send code chunk" },
-      { "<c-cr>", ":SlimeSend<cr>", desc = "send code chunk" },
-      { "<c-cr>", "<esc>:SlimeSend<cr>i", mode = "i", desc = "send code chunk" },
-      { "<c-cr>", "<Plug>SlimeRegionSend<cr>", mode = "v", desc = "send code chunk" },
-      { "<cr>", "<Plug>SlimeRegionSend<cr>", mode = "v", desc = "send code chunk" },
-      { "<leader>ctr", ":split term://R<cr>", desc = "terminal: R" },
-      { "<leader>cti", ":split term://ipython<cr>", desc = "terminal: ipython" },
-      { "<leader>ctp", ":split term://python<cr>", desc = "terminal: python" },
-      { "<leader>ctj", ":split term://julia<cr>", desc = "terminal: julia" },
+      { "<leader><cr>", ":SlimeSend<cr>",            desc = "send code chunk" },
+      { "<c-cr>",       ":SlimeSend<cr>",            desc = "send code chunk" },
+      { "<c-cr>",       "<esc>:SlimeSend<cr>i",      mode = "i",                desc = "send code chunk" },
+      { "<c-cr>",       "<Plug>SlimeRegionSend<cr>", mode = "v",                desc = "send code chunk" },
+      { "<cr>",         "<Plug>SlimeRegionSend<cr>", mode = "v",                desc = "send code chunk" },
+      { "<leader>ctr",  ":split term://R<cr>",       desc = "terminal: R" },
+      { "<leader>cti",  ":split term://ipython<cr>", desc = "terminal: ipython" },
+      { "<leader>ctp",  ":split term://python<cr>",  desc = "terminal: python" },
+      { "<leader>ctj",  ":split term://julia<cr>",   desc = "terminal: julia" },
     },
   },
 
@@ -55,7 +47,6 @@ return {
     "hrsh7th/nvim-cmp",
     dependencies = { "jmbuhr/otter.nvim" },
     opts = function(_, opts)
-      ---@param opts cmp.ConfigSchema
       local cmp = require("cmp")
       opts.sources = cmp.config.sources(vim.list_extend(opts.sources, { { name = "otter" } }))
     end,
@@ -84,12 +75,12 @@ return {
       ]])
 
       local function mark_terminal()
-        vim.g.slime_last_channel = vim.b.terminal_job_id
+        vim.g.slime_last_channel = vim.bo.terminal_job_id
         vim.print(vim.g.slime_last_channel)
       end
 
       local function set_terminal()
-        vim.b.slime_config = { jobid = vim.g.slime_last_channel }
+        vim.bo.slime_config = { jobid = vim.g.slime_last_channel }
       end
 
       -- slime, neovvim terminal
@@ -105,9 +96,7 @@ return {
 
   {
     "neovim/nvim-lspconfig",
-    ---@class PluginLspOpts
     opts = {
-      ---@type lspconfig.options
       servers = {
         pyright = {},
         r_language_server = {},
