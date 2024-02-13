@@ -4,3 +4,4 @@
 
 vim.env.SHELL = '/usr/bin/zsh'
 vim.env.PATH = '~/.local/bin/:' .. vim.env.PATH
+vim.opt.wildignorecase = true
