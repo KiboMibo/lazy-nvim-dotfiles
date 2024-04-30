@@ -9,146 +9,153 @@
 
 return {
 
-  -- this taps into vim.ui.select and vim.ui.input
-  -- and in doing so currently breaks renaming in otter.nvim
-  { "stevearc/dressing.nvim", enabled = false },
-
   {
     "quarto-dev/quarto-nvim",
+    ft = { "quarto" },
+    dev = false,
     opts = {
       lspFeatures = {
-        languages = { "r", "python", "julia", "bash", "html", "lua" },
+        languages = {
+          "r",
+          "python",
+          "julia",
+          "bash",
+          "lua",
+          "html",
+          "dot",
+          "javascript",
+          "typescript",
+          "ojs",
+        },
+      },
+      codeRunner = {
+        enabled = true,
+        default_method = "slime",
+      },
+      keymap = {
+        rename = "<leader>qR",
+        format = "<leader>qf",
       },
     },
-    ft = "quarto",
-    keys = {
-      { "<leader><cr>", ":SlimeSend<cr>",            desc = "send code chunk" },
-      { "<c-cr>",       ":SlimeSend<cr>",            desc = "send code chunk" },
-      { "<c-cr>",       "<esc>:SlimeSend<cr>i",      mode = "i",                desc = "send code chunk" },
-      { "<c-cr>",       "<Plug>SlimeRegionSend<cr>", mode = "v",                desc = "send code chunk" },
-      { "<cr>",         "<Plug>SlimeRegionSend<cr>", mode = "v",                desc = "send code chunk" },
-      { "<leader>ctr",  ":split term://R<cr>",       desc = "terminal: R" },
-      { "<leader>cti",  ":split term://ipython<cr>", desc = "terminal: ipython" },
-      { "<leader>ctp",  ":split term://python<cr>",  desc = "terminal: python" },
-      { "<leader>ctj",  ":split term://julia<cr>",   desc = "terminal: julia" },
+    dependencies = {
+      "jmbuhr/otter.nvim",
     },
   },
 
   {
     "jmbuhr/otter.nvim",
+    lazy = true,
+    keys = {
+      {
+        "<leader>cF",
+        require("otter").ask_format,
+        mode = { "n" },
+        desc = "code chunk format",
+      },
+    },
+    dependencies = {
+      "hrsh7th/nvim-cmp", -- optional, for completion
+      "neovim/nvim-lspconfig",
+      "nvim-treesitter/nvim-treesitter",
+    },
     opts = {
       buffers = {
         set_filetype = true,
       },
+      handle_leading_whitespace = true,
     },
   },
 
+  -- {
+  --   "hrsh7th/nvim-cmp",
+  --   dependencies = { "jmbuhr/otter.nvim" },
+  --   opts = function(_, opts)
+  --     local cmp = require("cmp")
+  --     opts.sources = cmp.config.sources(vim.list_extend(opts.sources, { { name = "otter" } }))
+  --   end,
+  -- },
+
+  -- paste an image from the clipboard or drag-and-drop
   {
-    "hrsh7th/nvim-cmp",
-    dependencies = { "jmbuhr/otter.nvim" },
-    opts = function(_, opts)
-      local cmp = require("cmp")
-      opts.sources = cmp.config.sources(vim.list_extend(opts.sources, { { name = "otter" } }))
-    end,
-  },
-
-  -- send code from python/r/qmd documets to a terminal or REPL
-  -- like ipython, R, bash
-  {
-    "jpalardy/vim-slime",
-    init = function()
-      vim.b["quarto_is_" .. "python" .. "_chunk"] = false
-      Quarto_is_in_python_chunk = function()
-        require("otter.tools.functions").is_otter_language_context("python")
-      end
-
-      vim.cmd([[
-      let g:slime_dispatch_ipython_pause = 100
-      function SlimeOverride_EscapeText_quarto(text)
-      call v:lua.Quarto_is_in_python_chunk()
-      if exists('g:slime_python_ipython') && len(split(a:text,"\n")) > 1 && b:quarto_is_python_chunk
-      return ["%cpaste -q\n", g:slime_dispatch_ipython_pause, a:text, "--", "\n"]
-      else
-      return a:text
-      end
-      endfunction
-      ]])
-
-      local function mark_terminal()
-        vim.g.slime_last_channel = vim.bo.terminal_job_id
-        vim.print(vim.g.slime_last_channel)
-      end
-
-      local function set_terminal()
-        vim.bo.slime_config = { jobid = vim.g.slime_last_channel }
-      end
-
-      -- slime, neovvim terminal
-      vim.g.slime_target = "neovim"
-      vim.g.slime_python_ipython = 1
-
-      require("which-key").register({
-        ["<leader>cM"] = { mark_terminal, "mark terminal" },
-        ["<leader>cS"] = { set_terminal, "set terminal" },
-      })
-    end,
-  },
-
-  {
-    "neovim/nvim-lspconfig",
+    "HakonHarnes/img-clip.nvim",
+    event = "BufEnter",
     opts = {
-      servers = {
-        pyright = {},
-        r_language_server = {},
-        julials = {},
-        marksman = {
-          -- also needs:
-          -- $home/.config/marksman/config.toml :
-          -- [core]
-          -- markdown.file_extensions = ["md", "markdown", "qmd"]
-          filetypes = { "markdown", "quarto" },
-          root_dir = require("lspconfig.util").root_pattern(".git", ".marksman.toml", "_quarto.yml"),
+      filetypes = {
+        markdown = {
+          url_encode_path = true,
+          template = "![$CURSOR]($FILE_PATH)",
+          drag_and_drop = {
+            download_images = false,
+          },
+        },
+        quarto = {
+          url_encode_path = true,
+          template = "![$CURSOR]($FILE_PATH)",
+          drag_and_drop = {
+            download_images = false,
+          },
         },
       },
     },
   },
 
+  -- paste an image from the clipboard or drag-and-drop
   {
-    "nvim-treesitter/nvim-treesitter",
+    "HakonHarnes/img-clip.nvim",
+    event = "BufEnter",
     opts = {
-      ensure_installed = {
-        "bash",
-        "c",
-        "html",
-        "javascript",
-        "json",
-        "lua",
-        "luadoc",
-        "luap",
-        "markdown",
-        "markdown_inline",
-        "python",
-        "query",
-        "regex",
-        "tsx",
-        "typescript",
-        "vim",
-        "vimdoc",
-        "yaml",
-        "bash",
-        "html",
-        "css",
-        "javascript",
-        "json",
-        "lua",
-        "markdown",
-        "markdown_inline",
-        "python",
-        "vim",
-        "yaml",
-        "python",
-        "julia",
-        "r",
+      filetypes = {
+        markdown = {
+          url_encode_path = true,
+          template = "![$CURSOR]($FILE_PATH)",
+          drag_and_drop = {
+            download_images = false,
+          },
+        },
+        quarto = {
+          url_encode_path = true,
+          template = "![$CURSOR]($FILE_PATH)",
+          drag_and_drop = {
+            download_images = false,
+          },
+        },
+      },
+    },
+  },
+
+  -- preview equations
+  {
+    "jbyuki/nabla.nvim",
+    keys = {
+      {
+        "<leader>oe",
+        ':lua require"nabla".toggle_virt()<cr>',
+        desc = "toggle math equations",
+      },
+    },
+  },
+
+  {
+    "benlubas/molten-nvim",
+    enabled = false,
+    build = ":UpdateRemotePlugins",
+    init = function()
+      vim.g.molten_image_provider = "image.nvim"
+      vim.g.molten_output_win_max_height = 20
+      vim.g.molten_auto_open_output = false
+    end,
+    keys = {
+      { "<leader>mi", ":MoltenInit<cr>", desc = "[m]olten [i]nit" },
+      {
+        "<leader>mv",
+        ":<C-u>MoltenEvaluateVisual<cr>",
+        mode = "v",
+        desc = "molten eval visual",
+      },
+      {
+        "<leader>mr",
+        ":MoltenReevaluateCell<cr>",
+        desc = "molten re-eval cell",
       },
     },
   },
