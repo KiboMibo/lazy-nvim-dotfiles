@@ -1,6 +1,7 @@
 {
   "extras": [
-    "lazyvim.plugins.extras.util.project"
+    "lazyvim.plugins.extras.util.project",
+    "lazyvim.plugins.extras.coding.codeium"
   ],
   "news": {
     "NEWS.md": "3314"
