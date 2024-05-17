@@ -11,6 +11,7 @@ return {
         ["markdown"] = { "markdownlint-cli2" },
         ["css"] = { "prettierd" },
         ["yaml"] = { "prettierd" },
+        ["nix"] = { "alejandra" },
         ["*"] = { "typos", "trim_whitespace", "trim_newlines" },
       },
       formatters = {
