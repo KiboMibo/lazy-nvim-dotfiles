@@ -52,3 +52,16 @@ vim.keymap.set(
   ":vsplit term://julia<cr>i",
   { desc = "terminal: julia" }
 )
+
+vim.keymap.set(
+  { "n", "v", "o", "i", "x" },
+  "<ScrollWheelLeft>",
+  "<ScrollWheelRight>",
+  { noremap = true }
+)
+vim.keymap.set(
+  { "n", "v", "o", "i", "x" },
+  "<ScrollWheelRight>",
+  "<ScrollWheelLeft>",
+  { noremap = true }
+)
