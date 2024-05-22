@@ -10,6 +10,7 @@ return {
         "pyright",
         -- "mdformat",
         "markdownlint-cli2",
+        "markdownlint",
         "typos",
         "prettierd",
         "black",
@@ -25,6 +26,7 @@ return {
     opts = {
       servers = {
         marksman = {
+          cmd = { "nix", "run", "nixpkgs#marksman", "--", "server" },
           filetypes = { "markdown", "quarto", "rmd" },
           root_dir = require("lspconfig.util").root_pattern(
             ".git",
@@ -49,22 +51,22 @@ return {
 
         emmet_language_server = {},
 
-        yamlls = {
-          settings = {
-            yaml = {
-              schemaStore = {
-                enable = true,
-                url = "",
-              },
-            },
-          },
-        },
+        -- yamlls = {
+        --   settings = {
+        --     yaml = {
+        --       schemaStore = {
+        --         enable = true,
+        --         url = "",
+        --       },
+        --     },
+        --   },
+        -- },
 
         dotls = {},
 
-        tsserver = {
-          filetypes = { "js", "javascript", "typescript", "ojs" },
-        },
+        -- tsserver = {
+        --   filetypes = { "js", "javascript", "typescript", "ojs" },
+        -- },
 
         nil_ls = {},
       },
