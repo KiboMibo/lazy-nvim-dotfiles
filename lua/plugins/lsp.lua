@@ -10,7 +10,6 @@ return {
         "pyright",
         -- "mdformat",
         "markdownlint-cli2",
-        "markdownlint",
         "typos",
         "prettierd",
         "black",

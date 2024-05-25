@@ -44,7 +44,6 @@ return {
 
   {
     "jmbuhr/otter.nvim",
-    lazy = true,
     keys = {
       {
         "<leader>cF",

@@ -8,7 +8,6 @@ return {
         ["python"] = { "black" },
         ["quarto"] = { "markdownlint-cli2" },
         ["rmd"] = { "markdownlint-cli2" },
-        ["markdown"] = { "markdownlint-cli2" },
         ["css"] = { "prettierd" },
         ["yaml"] = { "prettierd" },
         ["nix"] = { "alejandra" },
