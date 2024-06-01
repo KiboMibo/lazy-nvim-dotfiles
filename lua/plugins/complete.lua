@@ -1,3 +1,7 @@
+if true then
+  return {}
+end
+
 return {
   -- disable default <tab> and <s-tab> behavior in LuaSnip
   {

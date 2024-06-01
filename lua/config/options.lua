@@ -5,6 +5,9 @@
 vim.env.PATH = "~/.local/bin/:" .. vim.env.PATH
 vim.g.mapleader = " "
 
+-- R.nvim output colors
+vim.g.rout_follow_colorscheme = true
+
 -- case insensitive tab completion
 vim.opt.wildignorecase = true
 
