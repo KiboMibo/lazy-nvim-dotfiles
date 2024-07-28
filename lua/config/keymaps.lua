@@ -4,14 +4,6 @@
 
 local wk = require("which-key")
 
-wk.register({
-  c = {
-    t = {
-      name = "terminal",
-    },
-  },
-}, { prefix = "<leader>" })
-
 vim.keymap.set(
   "n",
   "<leader>ctt",

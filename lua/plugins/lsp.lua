@@ -3,71 +3,19 @@ return {
     "williamboman/mason.nvim",
     opts = {
       ensure_installed = {
-        "yaml-language-server",
-        "json-lsp",
-        "r-languageserver",
-        "texlab",
-        "pyright",
+        -- "yaml-language-server",
+        -- "json-lsp",
+        -- "r-languageserver",
+        -- "texlab",
+        -- "pyright",
         -- "mdformat",
-        "markdownlint-cli2",
-        "typos",
+        -- "markdownlint-cli2",
+        -- "typos",
         "prettierd",
         "black",
-        "nil",
+        -- "nil",
         -- "cbfmt",
         -- "codespell"
-      },
-    },
-  },
-
-  {
-    "neovim/nvim-lspconfig",
-    opts = {
-      servers = {
-        marksman = {
-          cmd = { "nix", "run", "nixpkgs#marksman", "--", "server" },
-          filetypes = { "markdown", "quarto", "rmd" },
-          root_dir = require("lspconfig.util").root_pattern(
-            ".git",
-            ".marksman.toml",
-            "_quarto.yml"
-          ),
-        },
-
-        r_language_server = {},
-
-        pyright = {},
-
-        julials = {},
-
-        bashls = {
-          filetypes = { "sh", "bash", "zsh" },
-        },
-
-        cssls = {},
-
-        html = {},
-
-        emmet_language_server = {},
-
-        -- yamlls = {
-        --   settings = {
-        --     yaml = {
-        --       schemaStore = {
-        --         enable = true,
-        --         url = "",
-        --       },
-        --     },
-        --   },
-        -- },
-
-        dotls = {},
-
-        -- tsserver = {
-        --   filetypes = { "js", "javascript", "typescript", "ojs" },
-        -- },
-
-        nil_ls = {},
       },
     },
   },

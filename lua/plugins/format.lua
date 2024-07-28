@@ -10,8 +10,8 @@ return {
         ["rmd"] = { "markdownlint-cli2" },
         ["css"] = { "prettierd" },
         ["yaml"] = { "prettierd" },
-        ["nix"] = { "alejandra" },
-        ["*"] = { "typos", "trim_whitespace", "trim_newlines" },
+        -- ["nix"] = { "alejandra" },
+        ["*"] = { "trim_whitespace", "trim_newlines" },
       },
       formatters = {
         rprettify = {
