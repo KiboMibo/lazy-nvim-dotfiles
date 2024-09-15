@@ -4,21 +4,32 @@ return {
     opts = {
       formatters_by_ft = {
         -- r formatter
-        -- ["r"] = { "rprettify" },
-        ["python"] = { "black" },
-        ["quarto"] = { "markdownlint-cli2" },
-        ["rmd"] = { "markdownlint-cli2" },
-        ["css"] = { "prettierd" },
-        ["yaml"] = { "prettierd" },
-        -- ["nix"] = { "alejandra" },
+        ["markdown"] = { "prettierd" },
+        ["markdown.mdx"] = { "prettierd" },
+        ["quarto"] = { "prettierd" },
+        ["rmd"] = { "prettierd" },
+        ["r"] = { "mystyler" },
         ["*"] = { "trim_whitespace", "trim_newlines" },
       },
       formatters = {
-        rprettify = {
-          inherit = false,
+        prettier = {
+          options = {
+            ft_parsers = {
+              quarto = "markdown",
+              rmd = "markdown",
+            },
+          },
+        },
+        mystyler = {
+          command = "R",
+          args = {
+            "-s",
+            "-e",
+            "styler::style_file(commandArgs(TRUE)[1])",
+            "--args",
+            "$FILENAME",
+          },
           stdin = false,
-          command = "rprettify",
-          args = { "$FILENAME" },
         },
         injected = {
           -- Set the options field
@@ -46,7 +57,7 @@ return {
             -- Map of treesitter language to formatters to use
             -- (defaults to the value from formatters_by_ft)
             lang_to_formatters = {
-              ["r"] = { "rprettify" },
+              ["r"] = { "mystyler" },
             },
           },
         },
