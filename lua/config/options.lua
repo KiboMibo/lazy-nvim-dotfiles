@@ -11,7 +11,7 @@ vim.opt.wildignorecase = true
 -- automatically load .nvim.lua
 vim.opt_global.exrc = true
 
--- no hiding characters
+-- -- no hiding characters
 vim.opt.conceallevel = 0 -- No hiding special characters
 
 -- highlight character at 120

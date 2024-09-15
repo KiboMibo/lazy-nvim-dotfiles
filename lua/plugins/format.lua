@@ -4,10 +4,10 @@ return {
     opts = {
       formatters_by_ft = {
         -- r formatter
-        ["markdown"] = { "prettierd" },
-        ["markdown.mdx"] = { "prettierd" },
-        ["quarto"] = { "prettierd" },
-        ["rmd"] = { "prettierd" },
+        ["markdown"] = { "mdformat" },
+        ["markdown.mdx"] = { "mdformat" },
+        ["quarto"] = { "mdformat" },
+        ["rmd"] = { "mdformat" },
         ["r"] = { "mystyler" },
         ["*"] = { "trim_whitespace", "trim_newlines" },
       },

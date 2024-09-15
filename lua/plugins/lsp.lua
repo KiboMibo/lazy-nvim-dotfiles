@@ -21,6 +21,28 @@ return {
   },
 
   {
+    "neovim/nvim-lspconfig",
+    opts = {
+      servers = {
+        marksman = {
+          mason = false,
+        },
+      },
+    },
+  },
+
+  {
+    "mfussenegger/nvim-lint",
+    optional = true,
+    opts = {
+      linters_by_ft = {
+        quarto = { "markdownlint-cli2" },
+        rmd = { "markdownlint-cli2" },
+      },
+    },
+  },
+
+  {
     "nvim-treesitter/nvim-treesitter",
     opts = {
       ensure_installed = {
