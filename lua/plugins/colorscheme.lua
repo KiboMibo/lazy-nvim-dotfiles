@@ -31,21 +31,19 @@ return {
     lazy = true,
     priority = 1000,
 
-    config = function()
-      require("hybrid").setup({
-        transparent = true, -- Show/hide background
-        overrides = function(hl, c)
-          hl["@markup.heading.1"] = { fg = c.bright_yellow, bold = true }
-          hl["@markup.heading.2"] = { fg = c.bright_cyan, bold = true }
-          hl["@markup.heading.3"] = { fg = c.bright_green, bold = true }
-          hl["@markup.heading.4"] = { fg = c.yellow }
-          hl["@markup.heading.5"] = { fg = c.cyan }
-          hl["@markup.heading.6"] = { fg = c.green }
-          hl["@markup.raw"] = {}
-          hl["@markup.raw.block"] = { fg = c.green }
-        end,
-      })
-    end,
+    opts = {
+      transparent = true, -- Show/hide background
+      overrides = function(hl, c)
+        hl["@markup.heading.1"] = { fg = c.bright_yellow, bold = true }
+        hl["@markup.heading.2"] = { fg = c.bright_cyan, bold = true }
+        hl["@markup.heading.3"] = { fg = c.bright_green, bold = true }
+        hl["@markup.heading.4"] = { fg = c.yellow }
+        hl["@markup.heading.5"] = { fg = c.cyan }
+        hl["@markup.heading.6"] = { fg = c.green }
+        hl["@markup.raw"] = {}
+        hl["@markup.raw.block"] = { fg = c.green }
+      end,
+    },
   },
 
   -- Configure LazyVim to load tomorrow-night
@@ -59,9 +57,6 @@ return {
   -- fix nvim-notify colors
   {
     "rcarriga/nvim-notify",
-    -- dependencies = {
-    --   { "HoNamDuong/hybrid.nvim" },
-    -- },
     opts = function(_, opts)
       local bg_color = require("hybrid.colors").palette.yellow
       opts.background_colour = bg_color
