@@ -32,7 +32,7 @@ return {
     priority = 1000,
 
     opts = {
-      transparent = true, -- Show/hide background
+      -- transparent = true, -- Show/hide background
       overrides = function(hl, c)
         hl["@markup.heading.1"] = { fg = c.bright_yellow, bold = true }
         hl["@markup.heading.2"] = { fg = c.bright_cyan, bold = true }

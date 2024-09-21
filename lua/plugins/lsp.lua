@@ -27,6 +27,9 @@ return {
         marksman = {
           mason = false,
         },
+        clangd = {
+          mason = false,
+        },
       },
     },
   },
