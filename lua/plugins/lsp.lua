@@ -3,9 +3,8 @@ return {
     "williamboman/mason.nvim",
     opts = {
       ensure_installed = {
-        -- "yaml-language-server",
-        -- "json-lsp",
-        -- "r-languageserver",
+        "yaml-language-server",
+        "json-lsp",
         -- "texlab",
         -- "pyright",
         -- "mdformat",
@@ -16,6 +15,7 @@ return {
         -- "nil",
         -- "cbfmt",
         -- "codespell"
+        "gopls",
       },
     },
   },
@@ -25,9 +25,6 @@ return {
     opts = {
       servers = {
         marksman = {
-          mason = false,
-        },
-        clangd = {
           mason = false,
         },
         nil_ls = {
@@ -52,7 +49,6 @@ return {
     "nvim-treesitter/nvim-treesitter",
     opts = {
       ensure_installed = {
-        "r",
         "python",
         "markdown",
         "markdown_inline",
@@ -66,12 +62,8 @@ return {
         "latex",
         "html",
         "css",
-        "dot",
         "javascript",
-        "mermaid",
-        "norg",
         "typescript",
-        "c",
         "json",
         "luadoc",
         "luap",
